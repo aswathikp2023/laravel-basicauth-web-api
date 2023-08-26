@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// Route::group(['middleware' => 'api',], function () {
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::group(['middleware' => 'istokenvalid'], function() {
+        Route::get('admin-logout', [AuthController::class, 'adminlogout']);
+        Route::middleware('api')->get('admin/allemployees', [AuthController::class, 'allemployees']);
+      });
+   
+// });
