@@ -21,7 +21,7 @@ use App\Http\Controllers\User\AuthController;
 
 // Route::group(['middleware' => 'api',], function () {
     Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::group(['middleware' => 'istokenvalid'], function() {
+    Route::group(['middleware' => ['api','istokenvalid']], function() {
         Route::get('admin-logout', [AuthController::class, 'adminlogout']);
         Route::middleware('api')->get('admin/allemployees', [AuthController::class, 'allemployees']);
       });
